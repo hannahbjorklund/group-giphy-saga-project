@@ -5,36 +5,92 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 function* rootSaga() {
-    yield takeLatest('SEARCH_GIFS', searchGifs)
-    yield takeLatest('GET_FAV', getFav)
-    yield takeLatest('ADD_FAV', addFav)
-    yield takeLatest('ADD_CATEGORY', addCategory)
+    yield takeLatest('SAGA/GET_GIFS', getGifs)
+    yield takeLatest('SAGA/GET_FAVS', getFavs)
+    yield takeLatest('SAGA/ADD_FAV', addFav)
+    yield takeLatest('SAGA/ADD_CAT', addCategory)
 }
 
-function* searchGifs() {
-    console.log('In searchGifs')
+function* getGifs() {
+    console.log('In getGifs')
+    // API request
 }
 
-function* getFav(){
-    console.log('In getFav')
+function* getFavs() {
+    console.log('Called getFavs()')
+    console.log(' - Sending axios request...')
+    try {
+        const response = yield axios({
+            method: 'GET',
+            url: '/favorites'
+        })
+        console.log(' - Success! Response: ', response)
+        console.log(' - Setting new favorites...')
+        yield put({
+            type: 'SET_FAV',
+            payload: response.data
+        })
+        console.log(' - Done!')
+    }
+    catch (error) {
+        console.error('getFavs failed:', error)
+    }
 }
 
-function* addFav() {
-    console.log('In addFav')
+function* addFav(action) {
+    console.log('Called addFav()')
+    console.log(' - Sending axios request...')
+    try {
+        const response = yield axios({
+            method: 'PUT',
+            url: '/favorites',
+            data: action.payload // whole item or just id?
+        })
+        console.log(' - Success! Response: ', response)
+        console.log(' - Getting new favorites...')
+        yield put({
+            type: 'SAGA/GET_FAVS'
+        })
+    } 
+    catch (error) {
+        console.error('addFav failed:', error)
+    }
 }
 
-function* addCategory() {
-    console.log('In addCategory')
+function* addCategory(action) {
+    console.log('Called addCategory()')
+    try {
+        const response = yield axios({
+            method: 'PUT',
+            url: '/category',
+            data: action.payload // whole item or just id?
+        })
+        console.log(' - Success! Response: ', response)
+        console.log(' - Getting new favorites...')
+        yield put({
+            type: 'SAGA/GET_FAVS'
+        })
+    }
+    catch(error) {
+        console.error('addCategory failed:', error)
+    }
 }
 
 const sagaMiddleware = createSagaMiddleware()
 
-const favs = (state = [], action) => {
+const gifs = (state = [], action => {
+    if (action.type === 'SET_GIFS') {
+        return [action.payload]
+    }
+    return state
+})
+
+const favorites = (state = [], action) => {
     switch(action.type) {
         case 'SET_FAV':
-            return state
-        case 'SET_CATEGORY':
-            return state
+            return [...state, action.payload]
+        case 'SET_CAT':
+            return [...state, action.payload]
         default:
             return state
     }
@@ -42,7 +98,8 @@ const favs = (state = [], action) => {
 
 const store = createStore(
     combineReducers({
-        favs
+        gifs,
+        favorites
     }),
     applyMiddleware(sagaMiddleware, logger)
 )

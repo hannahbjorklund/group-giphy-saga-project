@@ -17,7 +17,7 @@ function* getGifs() {
     try {
         const response = yield axios({
             method: 'GET',
-            url: '/api/gifs'
+            url: '/api/gifs' //query url!!!
         })
         console.log(' - Success! Response: ', response)
 

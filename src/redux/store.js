@@ -12,8 +12,25 @@ function* rootSaga() {
 }
 
 function* getGifs() {
-    console.log('In getGifs')
-    // API request
+    console.log('Called getGifs()')
+    console.log(' - Making axios request...')
+    try {
+        const response = yield axios({
+            method: 'GET',
+            url: '/api/gifs'
+        })
+        console.log(' - Success! Response: ', response)
+
+        console.log(' - Success! Setting new gis...')
+        yield put({
+            type: 'SET_GIFS',
+            payload: response.data
+        })
+    }
+    catch (error) {
+        console.error('getGifs failed:', error)
+    }
+
 }
 
 function* getFavs() {
@@ -42,9 +59,9 @@ function* addFav(action) {
     console.log(' - Sending axios request...')
     try {
         const response = yield axios({
-            method: 'PUT',
-            url: '/favorites',
-            data: action.payload // whole item or just id?
+            method: 'POST',
+            url: '/api/favorites',
+            data: action.payload
         })
         console.log(' - Success! Response: ', response)
         console.log(' - Getting new favorites...')
@@ -59,11 +76,12 @@ function* addFav(action) {
 
 function* addCategory(action) {
     console.log('Called addCategory()')
+    console.log(' - Sending axios request...')
     try {
         const response = yield axios({
             method: 'PUT',
-            url: '/category',
-            data: action.payload // whole item or just id?
+            url: '/api/favorites',
+            data: action.payload
         })
         console.log(' - Success! Response: ', response)
         console.log(' - Getting new favorites...')

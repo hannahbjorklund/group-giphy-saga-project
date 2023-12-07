@@ -48,11 +48,10 @@ router.put("/:id", (req, res) => {
 
   const queryText = `
     UPDATE "favorites"
-      SET 
-       , 
+      SET  
         "category_id"=$1, 
       WHERE
-        id=$2;
+        "id"=$2;
   `;
 
   const queryValues = [updateFavorite.category_id, favId];

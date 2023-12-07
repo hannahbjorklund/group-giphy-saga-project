@@ -1,7 +1,7 @@
 const express = require('express');
 const favoriteRouter = require('./routes/favorite.router');
 const categoryRouter = require('./routes/category.router');
-const gifsRouter = require('./routes/gifs.router')
+const gifsRouter = require('./routes/gifs.router');
 
 const app = express();
 const PORT = process.env.PORT || 5001;

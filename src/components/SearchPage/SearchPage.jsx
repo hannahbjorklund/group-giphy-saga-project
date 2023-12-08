@@ -49,7 +49,7 @@ const SearchPage = () => {
           </button>
         </form>
       </div>
-      <div className='gifList'>
+      <div className='flexContainer'>
         {searchResultsArray.length>0 && (
         <>
             {searchResultsArray.map((result) => {

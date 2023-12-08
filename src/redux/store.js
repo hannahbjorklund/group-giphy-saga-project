@@ -97,7 +97,7 @@ const gifs = (state = {}, action) => {
 const favorites = (state = [], action) => {
     switch(action.type) {
         case 'SET_FAV':
-            return [...state, action.payload]
+            return action.payload
         case 'SET_CAT':
             return [...state, action.payload]
         default:

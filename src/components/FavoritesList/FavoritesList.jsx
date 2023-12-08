@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import FavoritesItem from "../FavoritesItem/FavoritesItem";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export default function FavoritesList() {
+
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const favoritesReducer = useSelector((store) => store.favorites);
 
   useEffect(() => {
@@ -21,8 +25,16 @@ export default function FavoritesList() {
     console.log("In filterFavoritesByCategory, categoryId:", categoryId);
   };
 
+  const returnHome = () => {
+    history.push('/')
+  }
+
   return (
+
     <div className="favoritesContainer">
+
+      <button onClick={returnHome}>Home</button>
+
       <select
         name="category"
         onChange={() => filterFavoritesByCategory(this.value)}
@@ -34,13 +46,14 @@ export default function FavoritesList() {
         <option value={5}></option>
       </select>
 
-      {favoritesReducer[0] && (
+      {favoritesReducer && (
         <>
-          {favoritesReducer[0].map((favorite) => {
+          {favoritesReducer.map((favorite) => {
             return <FavoritesItem key={favorite.id} favorite={favorite} />;
           })}
         </>
       )}
+
     </div>
   );
 }

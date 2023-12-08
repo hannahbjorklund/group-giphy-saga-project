@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GifItem from "../GifItem/GifItem";
+import { useHistory } from "react-router-dom";
 
 const SearchPage = () => {
+
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -22,6 +25,10 @@ const SearchPage = () => {
 
   const displayGifs = () => {};
 
+  const navToFavs = () => {
+    history.push("/favorites")
+  }
+
   return (
     <>
       <div>
@@ -36,6 +43,9 @@ const SearchPage = () => {
             type="submit"
             onClick={submitSearch}>
                 Search
+          </button>
+          <button onClick={navToFavs}>
+                Favorites
           </button>
         </form>
       </div>

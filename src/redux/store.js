@@ -70,11 +70,8 @@ function* addCategory(action) {
     try {
         const response = yield axios({
             method: 'PUT',
-            url: '/api/favorites',
-            data: action.payload
-        })
-        yield put({
-            type: 'SAGA/GET_FAVS'
+            url: `/api/favorite/${action.payload.id}`,
+            data: {categoryId: action.payload.categoryId}
         })
     }
     catch(error) {

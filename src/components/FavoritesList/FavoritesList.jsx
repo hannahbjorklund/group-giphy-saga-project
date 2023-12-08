@@ -29,6 +29,8 @@ export default function FavoritesList() {
     history.push('/')
   }
 
+  
+
   return (
 
     <div className="favoritesContainer">

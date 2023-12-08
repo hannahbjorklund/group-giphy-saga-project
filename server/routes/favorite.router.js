@@ -43,18 +43,18 @@ router.post("/", (req, res) => {
 
 // update a favorite's associated category
 router.put("/:id", (req, res) => {
-  const updateFavorite = req.body;
-  const favId = req.params.id;
+  const categoryId = req.body.categoryId;
+  const favId = req.params.id
 
   const queryText = `
     UPDATE "favorites"
       SET  
-        "category_id"=$1, 
+        'category_id'= $1, 
       WHERE
-        "id"=$2;
+        'id'=$2;
   `;
 
-  const queryValues = [updateFavorite.category_id, favId];
+  const queryValues = [categoryId, favId];
 
   pool
     .query(queryText, queryValues)

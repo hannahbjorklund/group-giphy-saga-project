@@ -58,9 +58,6 @@ function* addFav(action) {
             url: '/api/favorite',
             data: action.payload
         })
-        yield put({
-            type: 'SAGA/GET_FAVS'
-        })
     } 
     catch (error) {
         console.error('addFav failed:', error)

@@ -31,7 +31,7 @@ export default function FavoritesList() {
 
   return (
 
-    <div className="favoritesContainer">
+    <div>
 
       <button onClick={returnHome}>Home</button>
 
@@ -46,6 +46,7 @@ export default function FavoritesList() {
         <option value={5}></option>
       </select>
 
+      <div className='flexContainer'>
       {favoritesReducer && (
         <>
           {favoritesReducer.map((favorite) => {
@@ -53,6 +54,7 @@ export default function FavoritesList() {
           })}
         </>
       )}
+      </div>
 
     </div>
   );

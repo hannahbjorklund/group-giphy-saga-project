@@ -16,7 +16,7 @@ export default function GifItem(result) {
 
   return (
     <div className='flexItem'>
-        <img height={100} width={100} src={item.images.fixed_height.url} />
+        <img src={item.images.fixed_height.url} />
         <button onClick={setFave} >🤍</button>
     </div>
   );

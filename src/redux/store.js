@@ -17,7 +17,7 @@ function* getGifs(action) {
     try {
         const response = yield axios({
             method: 'GET',
-            url: `/api/gifs?q=${action.payload}&limit=15`
+            url: `/api/gifs?q=${action.payload}&limit=21`
         })
         console.log('GET results:', action.payload)
         yield put({

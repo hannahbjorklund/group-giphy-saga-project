@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GifItem from "../GifItem/GifItem";
 import { useHistory } from "react-router-dom";
+import {HashRouter as Router, Link} from 'react-router-dom';
+
+import './SearchPage.css'
 
 const SearchPage = () => {
 
@@ -31,7 +34,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <div>
+    <div>
         <form>
           <input
             type="text"

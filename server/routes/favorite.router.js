@@ -6,13 +6,13 @@ const router = express.Router();
 // return all favorite images
 router.get("/", (req, res) => {
   const queryText = `
-  SELECT "url", "category_id" FROM "favorites";
+  SELECT * FROM "favorites";
 `;
   pool
     .query(queryText)
-    .then((response) => {
-      res.send(response.data);
-      console.log(response);
+    .then((result) => {
+      console.log("GET request, favorites:", result.rows);
+      res.send(result.rows);
     })
     .catch((err) => {
       console.log("Error in GET favorites", err);

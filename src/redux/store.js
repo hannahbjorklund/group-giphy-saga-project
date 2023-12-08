@@ -11,20 +11,18 @@ function* rootSaga() {
     yield takeLatest('SAGA/ADD_CAT', addCategory)
 }
 
-function* getGifs() {
+// get searched gifs from api
+function* getGifs(action) {
     console.log('Called getGifs()')
-    console.log(' - Making axios request...')
     try {
         const response = yield axios({
             method: 'GET',
-            url: '/api/gifs' //query url!!!
+            url: `/api/gifs?q=${action.payload}&limit=15`
         })
-        console.log(' - Success! Response: ', response)
-
-        console.log(' - Success! Setting new gis...')
+        console.log('GET results:', action.payload)
         yield put({
             type: 'SET_GIFS',
-            payload: response.data
+            payload: response.data.data
         })
     }
     catch (error) {
@@ -35,19 +33,16 @@ function* getGifs() {
 
 function* getFavs() {
     console.log('Called getFavs()')
-    console.log(' - Sending axios request...')
     try {
         const response = yield axios({
             method: 'GET',
-            url: '/favorites'
+            url: '/api/favorite'
         })
-        console.log(' - Success! Response: ', response)
-        console.log(' - Setting new favorites...')
+        console.log('GET results:', response.data)
         yield put({
             type: 'SET_FAV',
             payload: response.data
         })
-        console.log(' - Done!')
     }
     catch (error) {
         console.error('getFavs failed:', error)
@@ -56,15 +51,13 @@ function* getFavs() {
 
 function* addFav(action) {
     console.log('Called addFav()')
-    console.log(' - Sending axios request...')
+    console.log('Data to POST:', action.payload)
     try {
         const response = yield axios({
             method: 'POST',
-            url: '/api/favorites',
+            url: '/api/favorite',
             data: action.payload
         })
-        console.log(' - Success! Response: ', response)
-        console.log(' - Getting new favorites...')
         yield put({
             type: 'SAGA/GET_FAVS'
         })
@@ -76,15 +69,13 @@ function* addFav(action) {
 
 function* addCategory(action) {
     console.log('Called addCategory()')
-    console.log(' - Sending axios request...')
+    console.log('Data to PUT:', action.payload)
     try {
         const response = yield axios({
             method: 'PUT',
             url: '/api/favorites',
             data: action.payload
         })
-        console.log(' - Success! Response: ', response)
-        console.log(' - Getting new favorites...')
         yield put({
             type: 'SAGA/GET_FAVS'
         })
@@ -96,12 +87,12 @@ function* addCategory(action) {
 
 const sagaMiddleware = createSagaMiddleware()
 
-const gifs = (state = [], action => {
+const gifs = (state = {}, action) => {
     if (action.type === 'SET_GIFS') {
-        return [action.payload]
+        return action.payload
     }
     return state
-})
+}
 
 const favorites = (state = [], action) => {
     switch(action.type) {

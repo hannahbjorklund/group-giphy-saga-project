@@ -1,12 +1,10 @@
-import React from "react"
+import React from "react";
 
-export default function GifItem(item) {
+export default function GifItem(result) {
+    
+  let item = result.item;
 
-    return(
-        <span key={item.id}>
-            <img 
-            />
-        </span>
-    )
+  console.log("item is:", item);
 
+  return <img height={100} width={100} src={item.images.fixed_height.url} />;
 }

@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.static('build'));
 
-app.use('/api/favorites', favoriteRouter);
+app.use('/api/favorite', favoriteRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/gifs', gifsRouter);
 

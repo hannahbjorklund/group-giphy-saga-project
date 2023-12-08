@@ -2,7 +2,7 @@ h1{
     margin-top: 0;
     height: 8rem;
     align-items: center;
-    color: white;
+    color: rgb(30, 28, 28);
     display: flex;
     justify-content: center;
     font-size: xxx-large;
@@ -31,6 +31,11 @@ body{
 
 html{
     margin-top:0;
+}
+
+p{
+    display: block;
+    
 }
 
 

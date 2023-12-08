@@ -1,4 +1,11 @@
-.gifList{
+.flexContainer{
     display: flex;
     height: 40rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flexItem{
+    height: 5rem;
+    width: 5rem;
 }

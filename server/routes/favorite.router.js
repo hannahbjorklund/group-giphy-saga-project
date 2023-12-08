@@ -25,9 +25,9 @@ router.post("/", (req, res) => {
   const newFav = req.body;
   const queryText = `
     INSERT INTO "favorites"
-      ("url", "category_id")
+      ("url")
       VALUES
-      ($1, $2);
+      ($1);
   `;
   const queryValues = [newFav.name, newFav.category_id];
   pool

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GifItem from "../GifItem/GifItem";
 import { useHistory } from "react-router-dom";
+import './SearchPage.css'
 
 const SearchPage = () => {
 

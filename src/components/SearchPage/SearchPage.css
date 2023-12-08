@@ -1,11 +1,12 @@
 .flexContainer{
     display: flex;
-    height: 40rem;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .flexItem{
-    height: 5rem;
-    width: 5rem;
+    margin: 0.5rem;
+
 }
+
